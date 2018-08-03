@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require '~/.mikutter/plugin/fcm/fcm.rb'
 
 Plugin.create(:mikutter_fcmnotify) do
 
@@ -9,7 +8,7 @@ Plugin.create(:mikutter_fcmnotify) do
       data = {
        :title => "Favorited by #{user.idname}",
        :body => msg.description,
-       :url => 'https://mikutter.hachune.net/'
+       :url => msg.uri
     }
       Plugin.call(:fcm, data)
     end
@@ -21,7 +20,7 @@ Plugin.create(:mikutter_fcmnotify) do
         data = {
         :title => "Mentioned by #{m.user.idname}",
         :body => m.description,
-        :url => 'https://mikutter.hachune.net/'
+        :url => m.uri
       }
        Plugin.call(:fcm, data)
       end
@@ -36,7 +35,7 @@ Plugin.create(:mikutter_fcmnotify) do
             data = {
             :title => "ReTweeted by #{m.user.idname}",
             :body => s.description,
-            :url => 'https://mikutter.hachune.net/'
+            :url => s.uri
           }
            Plugin.call(:fcm, data)
           end
