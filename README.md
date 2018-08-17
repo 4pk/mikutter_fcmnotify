@@ -9,5 +9,5 @@ mkdir -p ~/.mikutter/plugin/ && \
 git clone https://github.com/4pk/mikutter_fcmnotify.git ~/.mikutter/plugin/mikutter_fcmnotify
 ```
 ## 課題
-①BT通知が複数発生してしまうときがある(2018/8/17現在再現しなくなった)
+①BT通知が複数発生してしまうときがある(2018/8/17現在再現しなくなった)  
 ②ふぁぼ，リプライ，RT(BT)以外の通知の実装が出来ていない
