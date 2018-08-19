@@ -1,8 +1,8 @@
 # mikutter_fcmnotify
 ## これなん
 mikutter_fcmを用いて，mikutterからリプライ，ふぁぼ，RT(BT)の通知を飛ばすプラグイン。
-## インストール
-1. yuzumoneさん作成の[プラグイン](https://github.com/yuzumone/mikutter_fcm)をインストールする。
+## 使い方
+1. yuzumoneさん作成の[プラグイン](https://github.com/yuzumone/mikutter_fcm)をインストールし，使えるようにする。
 2. このプラグインを下記のコマンドなどによりインストールする。
 ```
 mkdir -p ~/.mikutter/plugin/ && \
