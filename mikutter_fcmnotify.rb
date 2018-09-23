@@ -4,31 +4,31 @@
 
 Plugin.create(:mikutter_fcmnotify) do
 
- on_favorite do |service, user, msg|
-  # ポータル状態でif !user.me?にすると自分のふぁぼも通知される
+  on_favorite do |service, user, msg|
+    # ポータル状態でif !user.me?にすると自分のふぁぼも通知される
     if msg.from_me?
       data = {
-       :title => "Favorited by #{user.idname}",
-       :body => msg.description,
-       :url => msg.uri
-     }
-     # 意味不明な名前だけどこれでfcmをcallしてる
-     nishino(data)
+        :title => "Favorited by #{user.idname}",
+        :body => msg.description,
+        :url => msg.uri
+      }
+      # 意味不明な名前だけどこれでfcmをcallしてる
+      nishino(data)
     end
- end 
+  end 
 
   on_mention do |service ,msg|
     msg.each do |m|
       if Time.now - m.created < 10 and !m.retweet?
         data = {
-        :title => "Mentioned by #{m.user.idname}",
-        :body => m.description,
-        :url => m.uri
-         }
-         nishino(data)
-     end
-   end
- end
+          :title => "Mentioned by #{m.user.idname}",
+          :body => m.description,
+          :url => m.uri
+        }
+        nishino(data)
+      end
+    end
+  end
 
   on_retweet do |msg|
     msg.each do |m|
@@ -36,12 +36,12 @@ Plugin.create(:mikutter_fcmnotify) do
         m.retweet_source_d.next { |s|
           if s.from_me?
             data = {
-            :title => "ReTweeted by #{m.user.idname}",
-            :body => s.description,
-            :url => s.uri
-           }
-           nishino(data)
-         end
+              :title => "ReTweeted by #{m.user.idname}",
+              :body => s.description,
+              :url => s.uri
+            }
+            nishino(data)
+          end
         }
       end
     end
@@ -54,18 +54,18 @@ Plugin.create(:mikutter_fcmnotify) do
   def nishino(data)
     if UserConfig[:how_many] = "0"
       howmany = 29
-     else
+    else
       howmany = UserConfig[:how_many]
-     end
-     if UserConfig[:nishinokana]
+    end
+    if UserConfig[:nishinokana]
       i = 0
-     else
+    else
       i = howmany - 1
-     end
-     while i < howmany do
+    end
+    while i < howmany do
       Plugin.call(:fcm, data)
       i = i + 1
-     end
+    end
   end
 
   settings "mikutter_fcmnotify" do
