@@ -15,7 +15,7 @@ Plugin.create(:mikutter_fcmnotify) do
       # 意味不明な名前だけどこれでfcmをcallしてる
       nishino(data)
     end
-  end 
+  end
 
   on_mention do |service ,msg|
     msg.each do |m|
