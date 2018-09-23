@@ -8,9 +8,9 @@ Plugin.create(:mikutter_fcmnotify) do
     # ポータル状態でif !user.me?にすると自分のふぁぼも通知される
     if msg.from_me?
       data = {
-        :title => "Favorited by #{user.idname}",
-        :body => msg.description,
-        :url => msg.uri
+        title: "Favorited by #{user.idname}",
+        body: msg.description,
+        url: msg.uri
       }
       # 意味不明な名前だけどこれでfcmをcallしてる
       nishino(data)
@@ -21,9 +21,9 @@ Plugin.create(:mikutter_fcmnotify) do
     msg.each do |m|
       if Time.now - m.created < 10 and !m.retweet?
         data = {
-          :title => "Mentioned by #{m.user.idname}",
-          :body => m.description,
-          :url => m.uri
+          title: "Mentioned by #{m.user.idname}",
+          body: m.description,
+          url: m.uri
         }
         nishino(data)
       end
@@ -36,9 +36,9 @@ Plugin.create(:mikutter_fcmnotify) do
         m.retweet_source_d.next { |s|
           if s.from_me?
             data = {
-              :title => "ReTweeted by #{m.user.idname}",
-              :body => s.description,
-              :url => s.uri
+              title: "ReTweeted by #{m.user.idname}",
+              body: s.description,
+              url: s.uri
             }
             nishino(data)
           end
