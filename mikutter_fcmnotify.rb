@@ -7,25 +7,25 @@ Plugin.create(:mikutter_fcmnotify) do
   on_favorite do |service, user, msg|
     # ポータル状態でif !user.me?にすると自分のふぁぼも通知される
     if msg.from_me?
-      data = {
+      kana = {
         title: "Favorited by #{user.idname}",
         body: msg.description,
         url: msg.uri
       }
       # 意味不明な名前だけどこれでfcmをcallしてる
-      nishino(data)
+      nishino kana
     end
   end
 
   on_mention do |service ,msg|
     msg.each do |m|
       if Time.now - m.created < 10 and !m.retweet?
-        data = {
+        kana = {
           title: "Mentioned by #{m.user.idname}",
           body: m.description,
           url: m.uri
         }
-        nishino(data)
+        nishino kana
       end
     end
   end
@@ -35,12 +35,12 @@ Plugin.create(:mikutter_fcmnotify) do
       if Time.now - m.created < 10
         m.retweet_source_d.next { |s|
           if s.from_me?
-            data = {
+            kana = {
               title: "ReTweeted by #{m.user.idname}",
               body: s.description,
               url: s.uri
             }
-            nishino(data)
+            nishino kana
           end
         }
       end
