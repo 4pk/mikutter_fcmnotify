@@ -47,11 +47,31 @@ Plugin.create(:mikutter_fcmnotify) do
     end
   end
 
+  on_follow do |by, to|
+    by_user_to_user = {
+      followee: by[:idname],
+      follower: to[:idname] }
+    data = {
+      :title => "followed by #{by.user.idname}",
+      :body => "@%{followee} が @%{follower} をﾌｮﾛｰしました",
+      :url => nil
+     }
+     nishino(data)
+  end
+
+  # on_modify_activity do |params|
+  #   case params[:icon]
+  #   when Diva::Model, nil, false
+  #       Plugin.call(:fcm, params)
+  #   end
+  # end
+
   # 会いたくて震えると通知を1~50回重複させることが出来る
   # 会いたくて震えなければ通常の1回通知
   # 会いたくて震えるのに初期設定の0で使うと強制的に29回重複
   # ネーミングセンスどうにかしてると思う
   def nishino(data)
+   if UserConfig[:valid]
     if UserConfig[:how_many] = "0"
       howmany = 29
      else
@@ -66,9 +86,12 @@ Plugin.create(:mikutter_fcmnotify) do
       Plugin.call(:fcm, data)
       i = i + 1
      end
+    end
   end
 
   settings "mikutter_fcmnotify" do
+    # プラグインのオンオフスイッチあった方が使い勝手良いと思う
+    boolean "プラグインを有効にする", :valid
     # 今のところここのチェックでふぁぼ，リプ，RTが全て重複される
     boolean "会いたくて震える", :nishinokana
     # 上限が50なのは泥の通知キューの上限が50なので
