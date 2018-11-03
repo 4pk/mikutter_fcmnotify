@@ -52,7 +52,7 @@ Plugin.create(:mikutter_fcmnotify) do
   # 会いたくて震えるのに初期設定の0で使うと強制的に29回重複
   # ネーミングセンスどうにかしてると思う
   def nishino(data)
-    if UserConfig[:how_many] == "0"
+    if UserConfig[:how_many] == 0
       howmany = 29
     else
       howmany = UserConfig[:how_many]
